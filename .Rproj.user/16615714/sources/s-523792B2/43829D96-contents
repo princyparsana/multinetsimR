@@ -1,0 +1,35 @@
+simulated_theta_cov = get_multi_covariance(p =50, n = 3, prop_sample = 0.6)
+
+covariance_mat <- lapply(simulated_theta_cov$mat, function(x){
+  x$theta
+})
+
+### Group 1 ##
+## D1
+mixture_weights <- list(d1 = c(0.6, 0.3, 0.1),
+                        d2 = c(0.7, 0.1, 0.2),
+                        d3 = c(0.5, 0.2, 0.3),
+                        d4 = c(0.2, 0.6, 0.2),
+                        d5 = c(0.1, 0.7, 0.2),
+                        d6 = c(0.3, 0.55, 0.15),
+                        d7 = c(0.15, 0.05, 0.8),
+                        d8 = c(0.25, 0.2, 0.55),
+                        d9 = c(0.1, 0.3, 0.6))
+
+dat_cov <- lapply(mixture_weights, function(eachmix, covlist){
+  mix_list = mapply(function(x,y){
+    x*y
+  }, eachmix, covlist, SIMPLIFY = F)
+  solve(add(mix_list))
+}, covlist = covariance_mat)
+
+gen_empirical_covariance = lapply(dat_cov, function(x){
+  dat_tmp = mvtnorm::rmvnorm(500, sigma = x)
+  cov(dat_tmp)
+})
+
+library(feather)
+sapply(1:9, function(x) {
+  write_feather(as.data.frame(gen_empirical_covariance[[x]]), paste(x, ".feather", sep = ""))
+  return(0)
+})
