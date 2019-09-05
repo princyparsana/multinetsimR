@@ -18,8 +18,7 @@ get_multi_covariance <- function(p = 50, num_nets = 3, prop_sample = 0.6, ...){
   }
 
   ## temporory --> update with more efficient version
-  pg = igraph::union(sample_pa(p, directed = T),
-              sample_pa(p, directed = T), sample_pa(p, directed = T))
+  pg = igraph::union(sample_pa(p, directed = T))
 
   master_edgelist <- as_edgelist(pg)
 
@@ -56,7 +55,7 @@ get_multi_covariance <- function(p = 50, num_nets = 3, prop_sample = 0.6, ...){
   }, n = n, p = p)
 
   ## convert to undirected
-  multi_g <- sapply(multi_g, function(x)
+  multi_g <- lapply(multi_g, function(x)
     igraph::as.undirected(x)
     )
   list(mat = theta_cov_mat, graphs = multi_g)
