@@ -2,5 +2,5 @@
 
 The package can be installed by: 
 ```{r}
-devtools::install_github("princyparsana/multinetsimR")
+devtools::install_github("princyparsana/netsimulatR")
 ```
