@@ -14,11 +14,13 @@ get_multi_covariance <- function(p = 50, num_nets = 3, prop_sample = 0.6, ...){
   # num_nets: number of related networks to generate
   # prop_sample: sample this proportion of total edges in the network
   if(!exists('n')){
-    n = p * 10 # if number of samples is not provided, the number of samples will be 10 times the number of nodes
+    n = p * 1000 # if number of samples is not provided, the number of samples will be 10 times the number of nodes
   }
 
   ## temporory --> update with more efficient version
-  pg = igraph::union(sample_pa(p, directed = T))
+  pg = igraph::union(sample_pa(p, directed = T),
+                     sample_pa(p, directed = T),
+                     sample_pa(p, directed = T))
 
   master_edgelist <- as_edgelist(pg)
 
@@ -44,20 +46,18 @@ get_multi_covariance <- function(p = 50, num_nets = 3, prop_sample = 0.6, ...){
         next
       }else{
         neighbor_dat <- scale(dat.sim[,neighbors_sorted_p[[i]]])
-        dat.sim[,sorted_p[i]] <- rowSums(sapply(as.data.frame(neighbor_dat), .random_sign)) + (rnorm(n))
+        # dat.sim[,sorted_p[i]] <- rowSums(sapply(as.data.frame(neighbor_dat), .random_sign)) + (rnorm(n))
+        dat.sim[,sorted_p[i]] <- rowSums(as.data.frame(neighbor_dat)) + (rnorm(n))
       }
     }
-    cor_mat <- cor(dat.sim)
-    # diag(cor_mat) <- 0.1
-    # print(diag(cor_mat))
-    cov_mat = solve(cor_mat)
-    list(theta = cor_mat, covariance = cov_mat)
+    theta <- cor(dat.sim)
+    diag(theta) = 0
+    omega = theta * v
+    diag(omega) = abs(min(eigen(omega)$values)) + 0.1 + u
+    sigma = cov2cor(solve(omega))
+    list(precision = omega, covariance = sigma, graph = as.undirected(g))
   }, n = n, p = p)
 
-  ## convert to undirected
-  multi_g <- lapply(multi_g, function(x)
-    igraph::as.undirected(x)
-    )
-  list(mat = theta_cov_mat, graphs = multi_g)
+  theta_cov_mat
 }
 

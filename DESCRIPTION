@@ -1,11 +1,11 @@
-Package: multinetsimR
+Package: netsimulatR
 Type: Package
-Title: simulate data from a multiple gaussian markov random fields
+Title: What the Package Does (Title Case)
 Version: 0.1.0
-Author: Princy Parsana
-Maintainer: Princy Parsana <princyparsana@jhu.edu>
-Description: This is an R package contains functions to simulate data from 
-        multiple gaussian markov random fields with shared and specific patterns of conditional independencies
+Author: Who wrote it
+Maintainer: The package maintainer <yourself@somewhere.net>
+Description: More about what it does (maybe more than one line)
+    Use four spaces when indenting paragraphs within the Description.
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true
