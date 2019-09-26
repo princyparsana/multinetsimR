@@ -18,9 +18,7 @@ get_multi_covariance <- function(p = 50, num_nets = 3, prop_sample = 0.8, v = 0.
   }
 
   ## temporory --> update with more efficient version
-  pg = igraph::union(sample_pa(p, directed = T),
-                     sample_pa(p, directed = T),
-                     sample_pa(p, directed = T))
+  pg = igraph::union(sample_pa(p, directed = T))
 
   master_edgelist <- as_edgelist(pg)
 

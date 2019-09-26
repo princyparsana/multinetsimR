@@ -29,6 +29,6 @@ get_GMRF_network <- function(p = 100, v = 0.3, u = 0.1){
   diag(theta) = 0
   omega = theta * v
   diag(omega) = abs(min(eigen(omega)$values)) + 0.1 + u
-  sigma = cov2cor(solve(omega))
+  sigma = solve(omega)
   return(list(precision = omega, covariance = sigma, graph = g))
 }
