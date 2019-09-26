@@ -1,7 +1,6 @@
 library(igraph)
 
 get_GMRF_network <- function(p = 100, v = 0.3, u = 0.1){
-  p<-100
   if(!exists('n')){
     n = p * 100 # if number of samples is not provided, the number of samples will be 100 times the number of nodes
   }
