@@ -9,7 +9,7 @@ library(igraph)
 #
 # add <- function(x) Reduce("+", x)
 ###############################################
-get_multi_covariance <- function(p = 50, num_nets = 3, prop_sample = 0.8, v = 0.3, u = 0.1, ...){
+get_multi_covariance <- function(p = 50, num_nets = 3, prop_sample = 0.7, v = 0.3, u = 0.1, ...){
   # p: number of nodes in the graphs
   # num_nets: number of related networks to generate
   # prop_sample: sample this proportion of total edges in the network
