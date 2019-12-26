@@ -1,1 +1,3 @@
-exportPattern("^[[:alpha:]]+")
+importFrom("stats", "cor", "cov2cor", "rnorm", "runif")
+importFrom("utils", "combn")
+exportPattern("^[^\\.]")
