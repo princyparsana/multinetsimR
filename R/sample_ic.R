@@ -1,5 +1,6 @@
 ## construct a sparse inverse covariance matrix
-sample_ic <- function(p = 10, type = "scale-free" ,min_support = c(-0.4, 0.1), max_support = c(0.1, 0.4)){
+sample_ic <- function(p = 10, type = "scale-free" ,min_support = c(-0.4, 0.1), max_support = c(0.1, 0.4), seed = 1){
+  set.seed(seed)
   if(type == "scale-free"){
     pg = igraph::as.undirected(igraph::sample_pa(p, directed = T))
   }else{
