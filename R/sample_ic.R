@@ -2,7 +2,7 @@
 sample_ic <- function(p = 10, m=1, type = "scale-free" ,min_support = c(-0.4, 0.1), max_support = c(-0.1, 0.4), seed = 1){
   set.seed(seed)
   if(type == "scale-free"){
-    pg = igraph::sample_pa(p, m = m, directed = F)
+    pg = igraph::sample_pa(p, power = 2.5, m = m, directed = F)
   }else{
     pg = igraph::sample_gnm(p, m = p*3)
   }
