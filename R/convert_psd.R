@@ -22,6 +22,7 @@ convert_psd <- function(thisgraph, psd_type = "jgl", v  = 0.3, u = 0.1){
 
   if(psd_type == "huge"){
     ## adapted from huge package, allows to control the magnitude of PSD precision matrix
+    thisgraph  = thisgraph + t(thisgraph)
     diag(thisgraph) <- 0
     theta = thisgraph*v
     diag(theta) = abs(min(eigen(theta)$values)) + 0.1 + u
