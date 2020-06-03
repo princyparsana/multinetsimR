@@ -18,7 +18,7 @@ generate_multi_ic <- function(parent_graph, parent_theta, s = 0.5, num_nets = 3)
     parent_theta = triu(parent_theta)
     g_task = parent_theta * as_adj(update_gg)
     g_task= g_new + g_task
-    list(icov = convert_psd(g_task), g=g_sub)
+    list(theta = convert_psd(g_task), g=g_sub)
   }, y = parent_graph)
 }
 
