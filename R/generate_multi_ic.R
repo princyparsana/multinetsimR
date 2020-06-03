@@ -12,7 +12,7 @@ generate_multi_ic <- function(parent_graph, parent_theta, s = 0.5, num_nets = 3)
     g_sub = igraph::union(update_gg, g_sub_new)
     g_new = as_adj(g_sub_new)
     g_new = triu(g_new)
-    this_n_edges <- ecount(g_new)
+    this_n_edges <- ecount(g_sub_new)
     e_vals = runif(this_n_edges, min = c(-0.5, 0.1), max = c(-0.1, 0.5))
     g_new[g_new!=0] = e_vals
     parent_theta = triu(parent_theta)
