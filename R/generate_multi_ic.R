@@ -10,15 +10,15 @@ generate_multi_ic <- function(parent_graph, parent_theta, s = 0.5, num_nets = 3)
     update_gg = difference(y, g_sub_delete)
     g_sub_new = subgraph.edges(diff_parent_graph, sample(1:ecount(diff_parent_graph), subsample_count), delete.vertices = F)
     g_sub = igraph::union(update_gg, g_sub_new)
-    g_new = as_adj(g_sub)
-    g_new = triu(g_new)
-    this_n_edges <- ecount(g_sub)
+    g_new = as_adj(g_sub_new)
+    g_new = triu(g_sub_new)
+    this_n_edges <- ecount(g_sub_new)
     e_vals = runif(this_n_edges, min = c(-0.5, 0.1), max = c(-0.1, 0.5))
     g_new[g_new!=0] = e_vals
     parent_theta = triu(parent_theta)
     g_task = parent_theta * as_adj(update_gg)
     g_task= g_new + g_task
-    convert_psd(g_task)
+    list(icov = convert_psd(g_task), g=g_sub)
   }, y = parent_graph)
 }
 
