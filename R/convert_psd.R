@@ -33,7 +33,7 @@ convert_psd <- function(thisgraph, psd_type = "jgl", v  = 0.3, u = 0.1){
     thisgraph[thisgraph!=0] <- 1
     theta = thisgraph*v
     diag(theta) = abs(min(eigen(theta)$values)) + 0.1 + u
-    sigma = cov2cor(solve(theta))
+    sigma = (solve(theta))
     thisgraph = solve(sigma)
   }
 
