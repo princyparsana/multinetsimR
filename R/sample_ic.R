@@ -8,8 +8,8 @@ sample_ic <- function(p = 10, m=1, psd_type = "jgl", u = 0.1, v = 0.3, type = "s
   }
   n_edges = igraph::ecount(pg)
   g <- igraph::as_adj(pg)
-  # g <- Matrix::triu(g)
-  e_vals = runif(sum(g), min = min_support, max = max_support)
+  g <- Matrix::triu(g)
+  e_vals = runif(n_edges, min = min_support, max = max_support)
   g[g!=0] <- e_vals
   g <- convert_psd(g, u = u, v = v, psd_type = psd_type)
   if(!all(eigen(g)$values >=0)){
